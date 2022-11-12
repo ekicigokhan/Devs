@@ -21,9 +21,8 @@ import Kodlama.io.Devs.entities.concretes.Technology;
 @Service
 public class TechnologyManager implements TechnologyService {
 
-	
 	private TechnologyRepository technologyRepository;
-	
+
 	private LanguageRepository languageRepository;
 
 	public TechnologyManager(TechnologyRepository technologyRepository, LanguageRepository languageRepository) {
@@ -33,7 +32,7 @@ public class TechnologyManager implements TechnologyService {
 
 	@Override
 	public List<GetAllTechnologiesResponse> getAll() {
-		
+
 		List<Technology> technologies = technologyRepository.findAll();
 		List<GetAllTechnologiesResponse> gAllResponse = new ArrayList<>();
 		for (Technology tc : technologies) {
@@ -53,21 +52,13 @@ public class TechnologyManager implements TechnologyService {
 		if (isNameExist(createTechnologyRequest.getName())) {
 			throw new Exception("Eklemek istediğiniz teknoloji zaten mevcut.");
 		}
-		
+
 		Technology technology = new Technology();
 		technology.setId(0);
 		technology.setName(createTechnologyRequest.getName());
-		Language language = this.languageRepository.getById(createTechnologyRequest.getLanguage_id());
+		Language language = this.languageRepository.findLanguageById(createTechnologyRequest.getLanguageId());
 		technology.setLanguage(language);
-		this.technologyRepository.saveAndFlush(technology);
-		
-		
-//		Technology technology = new Technology();
-//        Language language = this.languageRepository.findLanguageById(createTechnologyRequest.getLanguage_id());
-//        technology.setName(createTechnologyRequest.getName());
-//        technology.setLanguage(language);
-//        
-//        technologyRepository.save(technology);
+		this.technologyRepository.save(technology);
 
 	}
 
@@ -76,12 +67,12 @@ public class TechnologyManager implements TechnologyService {
 		if (!isIdExist(deleteTechnologyRequests.getId())) {
 			throw new Exception("Silmek istediğiniz İD ile teknolojiye ait İD uyuşmuyor.");
 		}
-		
+
 		Technology technology = new Technology();
 		technology.setId(deleteTechnologyRequests.getId());
-		
+
 		technologyRepository.delete(technology);
-		
+
 	}
 
 	@Override
@@ -99,15 +90,15 @@ public class TechnologyManager implements TechnologyService {
 //		technology.get().setName(updateTechnologyRequests.getName());
 //		
 //		this.technologyRepository.save(technology.get());
-		
+
 		Technology technology = new Technology();
 		technology.setId(updateTechnologyRequests.getId());
 		technology.setName(updateTechnologyRequests.getName());
-		
+
 		Language language = languageRepository.findById(updateTechnologyRequests.getLanguageId()).get();
-		
+
 		technologyRepository.save(technology);
-		
+
 	}
 
 	@Override
@@ -121,15 +112,15 @@ public class TechnologyManager implements TechnologyService {
 //		getByIdTechnologyResponse.setId(tecOptional.get().getId());
 //		getByIdTechnologyResponse.setName(tecOptional.get().getName());
 //		return getByIdTechnologyResponse;
-		
+
 		Technology item = technologyRepository.findById(id).get();
-		
+
 		GetByIdTechnologyResponse getByIdTechnologyResponse = new GetByIdTechnologyResponse();
 		getByIdTechnologyResponse.setId(item.getId());
-		
+
 		return getByIdTechnologyResponse;
 	}
-	
+
 	public boolean isIdExist(int id) {
 		for (Technology tc : technologyRepository.findAll()) {
 			if (tc.getId() == id) {
@@ -138,7 +129,7 @@ public class TechnologyManager implements TechnologyService {
 		}
 		return false;
 	}
-	
+
 	public boolean isNameExist(String name) {
 		for (Technology tc : technologyRepository.findAll()) {
 			if (tc.getName().equalsIgnoreCase(name)) {
@@ -147,6 +138,5 @@ public class TechnologyManager implements TechnologyService {
 		}
 		return false;
 	}
-	
 
 }

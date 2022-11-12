@@ -3,7 +3,6 @@ package Kodlama.io.Devs.webApi.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +18,6 @@ import Kodlama.io.Devs.business.requests.languageRequests.DeleteLanguageRequests
 import Kodlama.io.Devs.business.requests.languageRequests.UpdateLanguageRequests;
 import Kodlama.io.Devs.business.responses.languageResponses.GetAllLanguagesResponse;
 import Kodlama.io.Devs.business.responses.languageResponses.GetByIdLanguageResponse;
-import Kodlama.io.Devs.entities.concretes.Language;
 
 @RestController
 @RequestMapping("/api/languages")

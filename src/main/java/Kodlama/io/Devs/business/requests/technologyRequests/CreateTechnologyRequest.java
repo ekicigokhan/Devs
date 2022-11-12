@@ -12,5 +12,5 @@ import lombok.Setter;
 public class CreateTechnologyRequest  {
 	
 	private String name;
-	private int language_id;
+	private int languageId;
 }
