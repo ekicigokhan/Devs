@@ -34,7 +34,7 @@ public class TechnologiesController {
 	public List<GetAllTechnologiesResponse> getAll(){
 		return technologyService.getAll();
 	}
-	
+
 	@PostMapping("/add")
 	public void add(@RequestBody CreateTechnologyRequest createTechnologyRequest) throws Exception {
 		this.technologyService.add(createTechnologyRequest);
@@ -45,14 +45,14 @@ public class TechnologiesController {
 		this.technologyService.delete(deleteTechnologyRequests);
 	}
 	@PutMapping("/update")
-	public void update(@RequestBody UpdateTechnologyRequests updateTechnologyRequests, String name) throws Exception {
+	public void update(@RequestBody UpdateTechnologyRequests updateTechnologyRequests) throws Exception {
 
 		this.technologyService.update(updateTechnologyRequests);
 	}
 
 	@GetMapping("/{id}")
-	public GetByIdTechnologyResponse getByIdTechnology(@RequestParam GetByIdTechnologyResponse getByIdTechnologyResponse)
-			throws Exception {
-		return technologyService.getByIdTechnology((getByIdTechnologyResponse.getId())) ;
+	public GetByIdTechnologyResponse getByIdTechnology(@RequestParam int id) throws Exception {
+
+		return technologyService.getByIdTechnology(id);
 	}
 }
